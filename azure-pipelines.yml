@@ -88,7 +88,7 @@ stages:
 
     # Create or update Azure App Service
     - task: AzureResourceGroupDeployment@2
-      displayName: 'Azure Deployment: Create Azure App Service'
+      displayName: 'Azure Deployment: Create Azure App Service $(imageName):$(Build.BuildId)'
       inputs:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
