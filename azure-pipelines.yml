@@ -34,7 +34,7 @@ stages:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
         location: $(location)
-        csmFile: '$(System.DefaultWorkingDirectory)/containerRegistry-template.json'
+        csmFile: '$(System.DefaultWorkingDirectory)/**/containerRegistry-template.json'
         overrideParameters: '-registryName "$(acrName)" -registryLocation "$(location)"'
 
     # Install Node
@@ -60,6 +60,22 @@ stages:
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
 
+    # Check ARM templates Exist
+    - task: CopyFiles@2
+      displayName: 'Check (container-webapp-template.json) ARM templates Exist'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: 'container-webapp-template.json'
+        TargetFolder: '$(Agent.TempDirectory)'
+    
+    # Check ARM templates Exist
+    - task: CopyFiles@2
+      displayName: 'Check (containerRegistry-template.json) ARM templates Exist'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: 'containerRegistry-template.json'
+        TargetFolder: '$(Agent.TempDirectory)'
+
     # Copy ARM templates
     - task: CopyFiles@2
       displayName: 'Copy ARM templates'
@@ -67,15 +83,7 @@ stages:
         SourceFolder: '$(Build.SourcesDirectory)'
         Contents: '**template.json*'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-    # Checking ARM Template exist
-    - bash: |
-        if [ -f container-webapp-template.json ]; then
-          echo "##vso[task.setVariable variable=myfileexists]true"
-        fi
-    - task: PowerShell@2
-      condition: eq(variables.myfileexists, 'true')       
-
+    
     # Publish the app as an artifact
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       artifact: app
@@ -101,7 +109,7 @@ stages:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
         location: '$(location)'
-        csmFile: '$(Agent.DefaultWorkingDirectory)/container-webapp-template.json'
+        csmFile: '$(Agent.TempDirectory)/container-webapp-template.json'
         overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -registryLocation "$(location)" -registrySku standard -imageName $(imageName):$(Build.BuildId)'
 
     # Deploy on Azure App Service
