@@ -93,7 +93,7 @@ stages:
         resourceGroupName: '$(rgName)'
         location: '$(location)'
         csmFile: '$(System.DefaultWorkingDirectory)/container-webapp-template.json'
-        overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -imageName $(imageName):$(Build.BuildId) -registryLocation "$(location)" -registrySku standard'
+        overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -imageName $(imageName):$(Build.BuildId) -registryLocation "$(location)" -registrySku standard -startupCommand ""'
 
     # Deploy on Azure App Service
     - task: AzureWebApp@1
