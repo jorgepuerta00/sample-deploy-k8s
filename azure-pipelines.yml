@@ -92,8 +92,8 @@ stages:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
         location: '$(location)'
-        csmFile: 'Deploymentfiles/VirtualNetwork/container-webapp-template.json'
-        overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -registryLocation "$(location)" -registrySku standard -imageName $(imageName):$(Build.BuildId)'
+        csmFile: '$(System.DefaultWorkingDirectory)/container-webapp-template.json'
+        overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -imageName $(imageName):$(Build.BuildId) -registryLocation "$(location)" -registrySku standard'
 
     # Deploy on Azure App Service
     - task: AzureWebApp@1
