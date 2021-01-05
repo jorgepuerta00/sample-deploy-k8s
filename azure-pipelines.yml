@@ -37,6 +37,16 @@ stages:
         csmFile: '$(System.DefaultWorkingDirectory)/containerRegistry-template.json'
         overrideParameters: '-registryName "$(acrName)" -registryLocation "$(location)"'
 
+    # Create or update Azure App Service
+    - task: AzureResourceGroupDeployment@2
+      displayName: 'Azure Deployment: Create Azure App Service'
+      inputs:
+        azureSubscription: '$(azureSubscription)'
+        resourceGroupName: '$(rgName)'
+        location: '$(location)'
+        csmFile: '$(System.DefaultWorkingDirectory)/container-webapp-template.json'
+        overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -registryLocation "$(location)" -registrySku standard -imageName $(imageName)'
+
     # Install Node
     - task: NodeTool@0
       inputs:
@@ -86,23 +96,13 @@ stages:
     - download: current
       artifact: app
 
-    # Create or update Azure App Service
-    - task: AzureResourceGroupDeployment@2
-      displayName: 'Azure Deployment: Create Azure App Service $(imageName):$(Build.BuildId)'
-      inputs:
-        azureSubscription: '$(azureSubscription)'
-        resourceGroupName: '$(rgName)'
-        location: '$(location)'
-        csmFile: '$(Pipeline.Workspace)/**/container-webapp-template.json'
-        overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -registryLocation "$(location)" -registrySku standard -imageName $(imageName):$(Build.BuildId)'
-
     # Deploy on Azure App Service
-    #- task: AzureWebApp@1
-    #  displayName: 'Azure Web App Deploy: $(webAppName)'
-    #  inputs:
-    #    azureSubscription: $(azureSubscription)
-    #    appType: webAppLinux
-    #    appName: $(webAppName)
-    #    runtimeStack: 'NODE|10.10'
-    #    package: $(Pipeline.Workspace)/app/$(Build.BuildId).zip
-    #    startUpCommand: 'yarn start'
+    - task: AzureWebApp@1
+      displayName: 'Azure Web App Deploy: $(webAppName)'
+      inputs:
+        azureSubscription: $(azureSubscription)
+        appType: webAppLinux
+        appName: $(webAppName)
+        runtimeStack: 'NODE|10.10'
+        package: $(Pipeline.Workspace)/app/$(Build.BuildId).zip
+        startUpCommand: 'yarn start'
