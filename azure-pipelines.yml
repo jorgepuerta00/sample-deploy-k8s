@@ -70,7 +70,7 @@ stages:
 
     # Checking ARM Template exist
     - bash: |
-        if [ -f $(System.DefaultWorkingDirectory)/container-webapp-template.json ]; then
+        if [ -f container-webapp-template.json ]; then
           echo "##vso[task.setVariable variable=myfileexists]true"
         fi
     - task: PowerShell@2
