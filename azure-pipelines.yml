@@ -47,7 +47,7 @@ stages:
     - script: yarn
       displayName: 'Install dependencies'
     
-    - script: yarn builf
+    - script: yarn build
       displayName: 'Production build'
     
     # ArchiveFiles
