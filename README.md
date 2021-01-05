@@ -1,46 +1,188 @@
-# Getting Started with Create React App
+## About
+
+I built this template with all the tools I found useful to develop my own personal projects, so it can be a bit biased. If you find something that you think is not relevant or could be improved, please open an issue or a pull request to fix it.
+
+## Features
+
+**React.js + TypeScript**
+
+- Because I love strongly typed languages (I'm a bit of a java developer at heart)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+First, run the development server:
 
-### `yarn start`
+```bash
+npm run start
+# or
+yarn start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-### `yarn test`
+**APIs**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- The demo project use two APIs, deployed on Azure App Service, through azure pipelines.
 
-### `yarn build`
+## Azure DevOps - Build Status
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+| Image | Status | Image | Status |
+| ------------- | ------------- | ------------- | ------------- |
+| Health-Explore WebApp |  [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-webApp-Node-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=22&branchName=master) | Health-Explore Job API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-Job-Api-NetCore-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=20&branchName=master) |
+| Health-Explore Filters API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-Filters-Api-NetCore-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=21&branchName=master) | 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Clone the repository and install the dependencies:
 
-### `yarn eject`
+```shell
+git clone https://github.com/jorgepuerta00/sample-deploy-k8s && cd sample-deploy-k8s && yarn install
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Usage
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Development
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Serve with hot reload at localhost:3000.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+yarn dev
+```
 
-## Learn More
+### Build
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Build for production: next.js automatically renders static HTML pages when possible. Then if you deploy on Azure you can have both statically rendered pages and server-side rendered pages.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+yarn build
+```
+
+Launch a server for server-side rendering (after building the application):
+
+```
+yarn start
+```
+
+Generate a fully static project with pre-rendered pages to put directly on a server or any static website hosting platform. Note that you lose the possibility to have server-side rendered pages. With Vercel you should not have to run this command.
+
+```
+yarn export
+```
+
+## Deployment
+
+This template is ready to be deployed on Azure with Continuos Deployment (CD):
+
+Deploy static-rendered Next.js websites on Azure Static Web Apps Preview
+
+### Prerequisites
+An Azure account with an active subscription. Create an account for free.
+A GitHub account. Create an account for free.
+Node.js installed.
+
+### Deploy your static website with Azure Pipelines
+
+Just use YML file in order to create an Azure Pipeline, this file contains provisioning infrastructure as code, you'll get it here two stages:
+## Stage BuildAndTest
+1. Container Registry creation from ARM Template
+2. Node installing
+3. Restoring dependencies and build
+4. Archive files of build
+5. Copy ARM templates
+6. Publish the app as an artifact
+
+## Staging Release
+1. Download the published application artifact
+2. Create or update Azure App Service
+3. Deploy on Azure App Service
+
+### Deploy your static website
+The following steps show how to link the app you just pushed to GitHub to Azure Static Web Apps. Once in Azure, you can deploy the application to a production environment.
+
+### Create a static app
+
+1. Navigate to the Azure portal
+2. Click Create a Resource
+3. Search for Static Web Apps
+4. Click Static Web Apps (Preview)
+5. Click Create
+6. Select a subscription from the Subscription drop-down list or use the default value.
+7. Click the New link below the Resource group drop-down. In New resource group name, type mystaticsite and click OK
+8. Provide a globally unique name for your app in the Name text box. Valid characters include a-z, A-Z, 0-9, and -. This value is used as the URL prefix for your static app in the format of https://<APP_NAME>.azurestaticapps.net.
+8. In the Region drop-down, choose a region closest to you.
+9. Select Free from the SKU drop-down.
+
+![alt text] (https://docs.microsoft.com/en-us/azure/static-web-apps/media/deploy-nextjs/create-static-web-app.png)
+
+### Add a GitHub repository
+
+The new Static Web Apps account needs access to the repository with your Next.js app so it can automatically deploy commits.
+
+1. Click the Sign in with GitHub button
+2. Select the Organization under which you created the repo for your Next.js project, which may be your GitHub username.
+3. Find and select the name of the repository you created earlier.
+4. Choose master as the branch from the Branch drop-down.
+
+![alt text] (https://docs.microsoft.com/en-us/azure/static-web-apps/media/deploy-nextjs/connect-github.png)
+
+### Configure the build process
+
+Azure Static Web Apps is built to automatically carry out common tasks like installing npm modules and running npm run build during each deployment. There are, however, a few settings like the application source folder and the build destination folder that you need to configure manually.
+
+1. Click on the Build tab to configure the static output folder.
+
+![alt text] (https://docs.microsoft.com/en-us/azure/static-web-apps/media/deploy-nextjs/build-tab.png)
+
+2. Type out in the App artifact location text box.
+
+### Review and create
+
+1. Click the Review + Create button to verify the details are all correct.
+2. Click Create to start the creation of the resource and also provision a GitHub Action for deployment.
+3. Once the deployment is completed, click Go to resource
+4. On the Overview window, click the URL link to open your deployed application.
+If the website does note immediately load, then the background GitHub Actions workflow is still running. Once the workflow is complete you can then click 6. refresh the browser to view your web app. If the website does note immediately load, then the background GitHub Actions workflow is still running. Once the workflow is complete you can then click refresh the browser to view your web app.
+
+You can check the status of the Actions workflows by navigating to the Actions for your repository:
+
+### Sync changes
+When you created the app, Azure Static Web Apps created a GitHub Actions workflow file in your repository. You need to bring this file down to your local repository so your git history is synchronized.
+
+Return to the terminal and run the following command git pull origin master.
+
+### Configure dynamic routes
+Navigate to the newly-deployed site and click on one of the framework or library logos. Instead of getting a details page, you get a 404 error page.
+
+### Generate static pages from dynamic routes
+1. Update the next.config.js file so that Next.js uses a list of all available data to generate static pages for each framework/library:
+
+```
+const data = require('./utils/projectsData');
+
+module.exports = {
+  trailingSlash: true,
+  exportPathMap: async function () {
+    const { projects } = data;
+    const paths = {
+      '/': { page: '/' },
+    };
+
+    projects.forEach((project) => {
+      paths[`/project/${project.slug}`] = {
+        page: '/project/[path]',
+        query: { path: project.slug },
+      };
+    });
+
+    return paths;
+  },
+};
+```
+
+2. Push the new changes to your GitHub repository and wait for a few minutes while GitHub Actions builds your site again. After the build is complete, the 404 error disappears.
+
+![alt text] (https://docs.microsoft.com/en-us/azure/static-web-apps/media/deploy-nextjs/404-in-production-fixed.png)
