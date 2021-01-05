@@ -73,7 +73,7 @@ stages:
         if [ -f $(System.DefaultWorkingDirectory)/container-webapp-template.json ]; then
           echo "##vso[task.setVariable variable=myfileexists]true"
         fi
-    - task: AzurePowerShell@1
+    - task: Bash@3
       condition: eq(variables.myfileexists, 'true')       
 
     # Publish the app as an artifact
