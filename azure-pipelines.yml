@@ -93,7 +93,7 @@ stages:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
         location: '$(location)'
-        csmFile: '$(System.DefaultWorkingDirectory)/container-webapp-template.json'
+        csmFile: '$(Pipeline.Workspace)/**/container-webapp-template.json'
         overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -registryLocation "$(location)" -registrySku standard -imageName $(imageName):$(Build.BuildId)'
 
     # Deploy on Azure App Service
