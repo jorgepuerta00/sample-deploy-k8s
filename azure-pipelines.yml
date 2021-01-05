@@ -34,7 +34,7 @@ stages:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
         location: $(location)
-        csmFile: '$(System.DefaultWorkingDirectory)/**/containerRegistry-template.json'
+        csmFile: '$(System.DefaultWorkingDirectory)/containerRegistry-template.json'
         overrideParameters: '-registryName "$(acrName)" -registryLocation "$(location)"'
 
     # Install Node
@@ -59,22 +59,6 @@ stages:
         archiveType: zip
         archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
         replaceExistingArchive: true
-
-    # Check ARM templates Exist
-    - task: CopyFiles@2
-      displayName: 'Check (container-webapp-template.json) ARM templates Exist'
-      inputs:
-        SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: 'container-webapp-template.json'
-        TargetFolder: '$(Agent.TempDirectory)'
-    
-    # Check ARM templates Exist
-    - task: CopyFiles@2
-      displayName: 'Check (containerRegistry-template.json) ARM templates Exist'
-      inputs:
-        SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: 'containerRegistry-template.json'
-        TargetFolder: '$(Agent.TempDirectory)'
 
     # Copy ARM templates
     - task: CopyFiles@2
@@ -109,16 +93,16 @@ stages:
         azureSubscription: '$(azureSubscription)'
         resourceGroupName: '$(rgName)'
         location: '$(location)'
-        csmFile: '$(Agent.TempDirectory)/container-webapp-template.json'
+        csmFile: '$(System.DefaultWorkingDirectory)/container-webapp-template.json'
         overrideParameters: '-webAppName $(webAppName) -hostingPlanName $(hostingPlanName) -appInsightsLocation "$(location)" -sku "S1 Standard" -registryName $(acrName) -registryLocation "$(location)" -registrySku standard -imageName $(imageName):$(Build.BuildId)'
 
     # Deploy on Azure App Service
-    - task: AzureWebApp@1
-      displayName: 'Azure Web App Deploy: $(webAppName)'
-      inputs:
-        azureSubscription: $(azureSubscription)
-        appType: webAppLinux
-        appName: $(webAppName)
-        runtimeStack: 'NODE|10.10'
-        package: $(Pipeline.Workspace)/app/$(Build.BuildId).zip
-        startUpCommand: 'yarn start'
+    #- task: AzureWebApp@1
+    #  displayName: 'Azure Web App Deploy: $(webAppName)'
+    #  inputs:
+    #    azureSubscription: $(azureSubscription)
+    #    appType: webAppLinux
+    #    appName: $(webAppName)
+    #    runtimeStack: 'NODE|10.10'
+    #    package: $(Pipeline.Workspace)/app/$(Build.BuildId).zip
+    #    startUpCommand: 'yarn start'
