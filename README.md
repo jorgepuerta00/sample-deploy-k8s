@@ -26,14 +26,13 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 **APIs**
 
-- The demo project use two APIs, deployed on Azure App Service, through azure pipelines.
+- The demo project contains webApp and APIs, deployed on Azure App Service, through azure pipelines with ARM Templates.
 
 ## Azure DevOps - Build Status
 
 | Image | Status | Image | Status |
 | ------------- | ------------- | ------------- | ------------- |
-| Health-Explore WebApp |  [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-webApp-Node-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=22&branchName=master) | Health-Explore Job API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-Job-Api-NetCore-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=20&branchName=master) |
-| Health-Explore Filters API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-Filters-Api-NetCore-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=21&branchName=master) | 
+| Satoshi WebApp |  [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-webApp-Node-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=22&branchName=master) | Satoshi User API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-Job-Api-NetCore-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=20&branchName=master) |
 
 # Installation
 
@@ -77,7 +76,7 @@ yarn export
 
 This template is ready to be deployed on Azure with Continuos Deployment (CD):
 
-Deploy static-rendered Next.js websites on Azure Static Web Apps Preview
+Deploy static-rendered react.js websites on Azure Static Web Apps Preview
 
 ### Prerequisites
 An Azure account with an active subscription. Create an account for free.
