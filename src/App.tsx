@@ -35,10 +35,9 @@ function App() {
           <NavBar />
           <div className="content">
             <Switch>
-              <Route exact path="/index" component={Home} />
+              <Route exact path="/" component={Home} />
               <PublicRoute path="/login" component={Login} />
               <PrivateRoute path="/dashboard" component={Dashboard} />
-              <Redirect from="/" to="/index" />
             </Switch>
           </div>
         </div>

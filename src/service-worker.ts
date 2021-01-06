@@ -83,10 +83,8 @@ self.addEventListener('install', e => {
      caches.open('airhorner').then(cache => {
          return cache.addAll([
              '/',
-             '/index',
-             '/Home',
-             '/Login',
-             '/Dashboard'
+             '/login',
+             '/dashboard'
          ])
              .then(() => self.skipWaiting());
      })
