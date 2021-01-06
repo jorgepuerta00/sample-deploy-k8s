@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
 
-// core components
-import Login from './Views/Containers/Login';
-import Dashboard from './Views/Containers/Dashboard';
-import Home from './Views/Containers/Home';
-
+// Components
 import { NavBar } from './Components/Index'
 
 // Routes
@@ -13,6 +9,11 @@ import { PrivateRoute, PublicRoute } from './Utils/Index';
 
 // Hooks
 import { useVerifyToken } from './Hooks/Index';
+
+// core components
+const Login = lazy(() => import("./Views/Containers/Login"));
+const Dashboard = lazy(() => import("./Views/Containers/Dashboard"));
+const Home = lazy(() => import("./Views/Containers/Home"));
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
         <div>
           <NavBar />
           <div className="content">
@@ -40,6 +42,7 @@ function App() {
             </Switch>
           </div>
         </div>
+        </Suspense>
       </BrowserRouter>
     </div>
   );

@@ -21,11 +21,8 @@
       "purpose": "any maskable"
     }
   ],
-  "start_url": "/",
-  "scope": "/",
+  "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff",
-  "related_applications": [],
-  "prefer_related_applications": false
+  "background_color": "#ffffff"
 }
