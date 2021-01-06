@@ -32,7 +32,7 @@ You can start editing the page by modifying `pages/index.js`. The page auto-upda
 
 | Image | Status | Image | Status |
 | ------------- | ------------- | ------------- | ------------- |
-| Satoshi WebApp |  [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-webApp-Node-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=22&branchName=master) | Satoshi User API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/HealthExplore-Job-Api-NetCore-CI?branchName=master)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=20&branchName=master) |
+| Satoshi WebApp |  [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/Satoshi-Sample-WebApp-CI?branchName=main)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=23&branchName=main) | Satoshi User API | [![Build Status](https://jorgepuerta.visualstudio.com/SeekQ/_apis/build/status/Satoshi-Sample-Api-Node-CI?branchName=main)](https://jorgepuerta.visualstudio.com/SeekQ/_build/latest?definitionId=24&branchName=main) |
 
 # Installation
 
