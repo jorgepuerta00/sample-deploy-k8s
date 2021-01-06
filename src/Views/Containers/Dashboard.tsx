@@ -16,6 +16,7 @@ function Dashboard(props: any) {
 
   React.useEffect(() => {
     fetchData(user.uid);
+    // eslint-disable-next-line
   }, []);
 
   if (loading) {
