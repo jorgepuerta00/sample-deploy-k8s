@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react';
-import { Switch, Route, BrowserRouter, Redirect } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 // Components
 import { NavBar } from './Components/Index'

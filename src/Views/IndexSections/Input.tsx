@@ -20,6 +20,7 @@ const Input: React.FC<IInputProps> = ({
     <>
       <input 
         type={type}
+        aria-hidden="true"
         aria-invalid={errors[name] ? "true" : "false"} 
         placeholder={placeholder}
         id={name}
