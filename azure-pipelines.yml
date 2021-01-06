@@ -70,7 +70,7 @@ stages:
         imageName: '$(imageName):$(Build.BuildId)'
         useDefaultContext: false
         buildContext: '$(System.DefaultWorkingDirectory)'
-        dockerFile: '$(System.DefaultWorkingDirectory)/dockerfile'
+        dockerFile: '$(System.DefaultWorkingDirectory)/Dockerfile'
 
     # Push container image
     - task: Docker@1
